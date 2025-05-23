@@ -14,6 +14,9 @@ class MapController extends Controller
     public function searchRestaurantsNew(Request $request)
     {
         $keyword = $request->input('keyword');
+        if (!is_string($keyword) || trim($keyword) === '') {
+            return response()->json(['error' => 'กรุณากรอกคำค้นหา'], 422);
+        }
         $apiKey = env('GOOGLE_MAPS_API_KEY');
 
         try {
